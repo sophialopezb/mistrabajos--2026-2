@@ -185,7 +185,7 @@ public class Tienda {
 
     }
 //punto 5:   Obtener las facturas donde se haya comprado un celular de marca Iphone 16 pro max
-    
+
 public ArrayList<Factura> obtenerFacturasConIphone16ProMax(String tipoProducto) {
         ArrayList<Factura> resultado = new ArrayList<>();
         for (Factura factura : listaFacturas){
@@ -201,7 +201,20 @@ public ArrayList<Factura> obtenerFacturasConIphone16ProMax(String tipoProducto) 
 
 //punto 6:   Obtener las facturas que tenga un cliente
 // donde su nombre sea juan y haya comprado un celular de marca Iphone 16 pro max
-
+public ArrayList<Factura> obtenerFacturasConIphone16ProMaxDeJuan() {
+    ArrayList<Factura> resultado = new ArrayList<>();
+    for (Factura factura : listaFacturas) {
+        if (factura.cliente().getNombreCompleto().contains("juan")) {
+            for (DetalleFactura detalleFactura : factura.listaDetallesFactura()) {
+                if (detalleFactura.getProducto().getNombre().equals("Iphone 16 pro max")) {
+                    resultado.add(factura);
+                    break;
+                }
+            }
+        }
+    }
+    return resultado;
+}
 
 // Punto 7: Implementar un método que reciba una categoría
 //  y retorne todos los productos registrados que pertenezcan a ella.

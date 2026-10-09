@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Cliente {
 
     private final String documentoIdentidad;
@@ -16,14 +21,15 @@ public class Cliente {
 
     public Cliente(String documentoIdentidad, String nombreCompleto,
                    Tienda ownedByTienda, String telefono,
-                   String correo, String ciudadResidencia, List<Factura> listaFacturas) {
+                   String correo, String ciudadResidencia) {
+
         this.documentoIdentidad = documentoIdentidad;
         this.nombreCompleto = nombreCompleto;
         this.ownedByTienda = ownedByTienda;
         this.telefono = telefono;
         this.correo = correo;
         this.ciudadResidencia = ciudadResidencia;
-        this.listaFacturas = listaFacturas;
+        this.listaFacturas = new ArrayList<>();
     }
 
     public String getDocumentoIdentidad() {
@@ -54,4 +60,17 @@ public class Cliente {
         return ownedByTienda;
     }
 
+    public boolean isCompraEnFecha(LocalDate fechaConsulta) {
+        boolean comproFecha = false;
+        for (Factura factura : listaFacturas){
+            if(factura.fecha().isEqual(fechaConsulta)){
+                return true;
+            }
+        }
+        return comproFecha;
+    }
+
+    public boolean verificarNombreConR() {
+        return nombreCompleto.startsWith("R");
+    }
 }

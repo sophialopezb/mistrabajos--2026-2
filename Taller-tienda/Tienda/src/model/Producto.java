@@ -51,7 +51,8 @@ public class Producto {
         return ownedByTienda;
     }
 
-    public void setCantidadDisponible(int cantidad) {
+
+    public void setCantidadDisponibles(int cantidad) {
         this.cantidadDisponible = cantidad;
     }
 }

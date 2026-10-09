@@ -2,31 +2,36 @@ package model;
 
 public class DetalleFactura {
 
-    private final int cantidadComprada;
-    private final double subTotal;
-    private final Producto producto;
-    private final Factura owndByFactura;
 
-    public DetalleFactura(int cantidadComprada, double subTotal, Producto producto, Factura owndByFactura) {
-        this.cantidadComprada = cantidadComprada;
-        this.subTotal = subTotal;
-        this.producto = producto;
-        this.owndByFactura = owndByFactura;
-    }
+        private final int cantidadComprada;
+        private final double subTotal;
+        private final Producto producto;
+        private final Factura owndByFactura;
 
-    public double getSubTotal() {
-        return subTotal;
-    }
+        public DetalleFactura(int cantidadComprada, double subTotal, Producto producto, Factura owndByFactura) {
+            this.cantidadComprada = cantidadComprada;
+            this.subTotal = subTotal;
+            this.producto = producto;
+            this.owndByFactura = owndByFactura;
+        }
 
-    public Producto getProducto() {
-        return producto;
-    }
+        public double getSubTotal() {
+            return subTotal;
+        }
 
-    public int getCantidadComprada() {
-        return cantidadComprada;
-    }
+        public Producto getProducto() {
+            return producto;
+        }
 
-    public Factura getOwndByFactura() {
-        return owndByFactura;
+        public int getCantidadComprada() {
+            return cantidadComprada;
+        }
+
+        public Factura getOwndByFactura() {
+            return owndByFactura;
+        }
+
+        public float calcularSubTotal(){
+            return (float) (cantidadComprada * getProducto().getValor());
+        }
     }
-}

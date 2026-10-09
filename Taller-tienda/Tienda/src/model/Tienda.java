@@ -1,5 +1,7 @@
 package model;
 
+import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -101,7 +103,7 @@ public class Tienda {
     public String actualizarProducto(Producto producto, int cantidad) {
         Optional<Producto> productoEncontrado = buscarProducto(producto.getCodigo());
         if (productoEncontrado.isPresent()) {
-            productoEncontrado.get().setCantidadDisponible(cantidad);
+            productoEncontrado.get().setCantidadDisponibles(cantidad);
             return "Actualizado con exito";
         }
         return "El producto no se encuentra registrado";
@@ -135,14 +137,75 @@ public class Tienda {
     }
 
     // 1. Obtener productos en cantidad mayores  o iguales a 10
-    public List<Producto> obtenerProductosConCantidadDisponibleMayorIgualA10() {
-        List<Producto> productosFiltrados = new ArrayList<>();
-        for (Producto producto : listaProductos.values()) {
-            if (producto.getCantidadDisponible() >= 10) {
-                productosFiltrados.add(producto);
+    public List<Producto> obtenerMayoresDiez() {
+        List<Producto> productosAdecuado = new ArrayList<>();
+
+        for (Producto productosBuenos : listaProductos.values()) {
+            if (productosBuenos.getCantidadDisponible() >= 10) {
+                productosAdecuado.add(productosBuenos);
             }
         }
-        return productosFiltrados;
+        return productosAdecuado;
     }
+    //2. Obtener la lista de codigos de los productos con una cantidad disponible mayor igual a 10 y menor que 50
+
+    public ArrayList<String> ObtenerCodigoProductosAgotados(int limiteInferior, int limiteSuperior) {
+        ArrayList<String> resultado = new ArrayList<>();
+        for (String codigo : listaProductos.keySet()) {
+            Producto producto = listaProductos.get(codigo);
+            if (producto.getCantidadDisponible() >= 10 && producto.getCantidadDisponible() < 50) {
+                resultado.add(codigo);
+            }
+        }
+        return resultado;
+    }
+
+    //3. Obtener la lista de clientes que hayan comprado el 7 de octubre de 2026
+    public ArrayList<Cliente> ObtenerClientesCompras(LocalDate fechaConsulta) {
+        ArrayList<Cliente> listaClientes = new ArrayList<>();
+
+        for (Factura factura : listaFacturas) {
+            if (factura.fecha().isEqual(fechaConsulta)) {
+                listaClientes.add(factura.cliente());
+            }
+        }
+        return listaClientes;
+    }
+
+    //4. obtener las facturas que tenga un cliente donde su nombre empiece con R
+    public ArrayList<Factura> obtenerFacturasClienteConR(){
+        ArrayList<Factura> resultado = new ArrayList<>();
+
+        for (Factura factura : listaFacturas){
+            if(factura.tieneClienteConR()){
+                resultado.add(factura);
+            }
+        }
+        return resultado;
+
+    }
+//punto 5:   Obtener las facturas donde se haya comprado un celular de marca Iphone 16 pro max
+
+//punto 6:   Obtener las facturas que tenga un cliente
+// donde su nombre sea juan y haya comprado un celular de marca Iphone 16 pro max
+
+
+// Punto 7: Implementar un método que reciba una categoría
+//  y retorne todos los productos registrados que pertenezcan a ella.
+
+//punto 8 : Implementar un método que reciba un precio mínimo y un precio máximo, y retorne
+// los productos cuyo precio se encuentre dentro de ese rango, incluyendo ambos límites.
+
+//punto 9: Implementar un método que retorne todos los productos
+// registrados en la tienda, ordenados de menor a mayor según su precio.
+
+//punto 10: Implementar un método que identifique el producto con el precio más alto de la tienda.
+// Si no existen productos registrados, el método debe retornar un Optional vacío.
+
+//Punto 11: Implementar un método que reciba el nombre de una ciudad y retorne
+// todos los clientes que residan en ella.
+// La búsqueda debe realizarse sin diferenciar entre mayúsculas y minúsculas.
+
+
 
 }

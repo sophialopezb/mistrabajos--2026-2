@@ -185,6 +185,18 @@ public class Tienda {
 
     }
 //punto 5:   Obtener las facturas donde se haya comprado un celular de marca Iphone 16 pro max
+public ArrayList<Factura> obtenerFacturasConIphone16ProMax(String tipoProducto) {
+        ArrayList<Factura> resultado = new ArrayList<>();
+        for (Factura factura : listaFacturas){
+           for (DetalleFactura detalleFactura: factura.listaDetallesFactura()){
+               if (detalleFactura.getProducto().getNombre().equals(tipoProducto)) {
+                   resultado.add(factura);
+                   break;
+               }
+           }
+        }
+        return resultado;
+}
 
 //punto 6:   Obtener las facturas que tenga un cliente
 // donde su nombre sea juan y haya comprado un celular de marca Iphone 16 pro max

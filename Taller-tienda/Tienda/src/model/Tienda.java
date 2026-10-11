@@ -26,13 +26,29 @@ public class Tienda {
     }
 
     // Getters
-    public String getNombre() { return nombre; }
-    public String getNit() { return nit; }
-    public String getTelefono() { return telefono; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public List<Cliente> getListaClientes() { return listaClientes; }
-    public List<Factura> getListaFacturas() { return listaFacturas; }
-    public Map<String, Producto> getListaProductos() { return listaProductos; }
+    public String getNit() {
+        return nit;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public List<Cliente> getListaClientes() {
+        return listaClientes;
+    }
+
+    public List<Factura> getListaFacturas() {
+        return listaFacturas;
+    }
+
+    public Map<String, Producto> getListaProductos() {
+        return listaProductos;
+    }
 
     public void setListaProductos(Map<String, Producto> listaProductos) {
         this.listaProductos = listaProductos;
@@ -170,10 +186,10 @@ public class Tienda {
     }
 
     //4. obtener las facturas que tenga un cliente donde su nombre empiece con R
-    public ArrayList<Factura> obtenerFacturasClienteConR(){
+    public ArrayList<Factura> obtenerFacturasClienteConR() {
         ArrayList<Factura> resultado = new ArrayList<>();
-        for (Factura factura : listaFacturas){
-            if(factura.tieneClienteConR()){
+        for (Factura factura : listaFacturas) {
+            if (factura.tieneClienteConR()) {
                 resultado.add(factura);
             }
         }
@@ -182,46 +198,46 @@ public class Tienda {
     }
 //punto 5:   Obtener las facturas donde se haya comprado un celular de marca Iphone 16 pro max
 
-public ArrayList<Factura> obtenerFacturasConIphone16ProMax(String tipoProducto) {
+    public ArrayList<Factura> obtenerFacturasConIphone16ProMax(String tipoProducto) {
         ArrayList<Factura> resultado = new ArrayList<>();
-        for (Factura factura : listaFacturas){
-           for (DetalleFactura detalleFactura: factura.listaDetallesFactura()){
-               if (detalleFactura.getProducto().getNombre().equals(tipoProducto)) {
-                   resultado.add(factura);
-                   break;
-               }
-           }
-        }
-        return resultado;
-}
-
-//punto 6:   Obtener las facturas que tenga un cliente
-// donde su nombre sea juan y haya comprado un celular de marca Iphone 16 pro max
-public ArrayList<Factura> obtenerFacturasConIphone16ProMaxDeJuan() {
-    ArrayList<Factura> resultado = new ArrayList<>();
-    for (Factura factura : listaFacturas) {
-        if (factura.cliente().getNombreCompleto().contains("juan")) {
+        for (Factura factura : listaFacturas) {
             for (DetalleFactura detalleFactura : factura.listaDetallesFactura()) {
-                if (detalleFactura.getProducto().getNombre().equals("Iphone 16 pro max")) {
+                if (detalleFactura.getProducto().getNombre().equals(tipoProducto)) {
                     resultado.add(factura);
                     break;
                 }
             }
         }
+        return resultado;
     }
-    return resultado;
-}
 
-// Punto 7: Implementar un método que reciba una categoría
-//  y retorne todos los productos registrados que pertenezcan a ella.
-public List<Producto> obtenerProductosPorCategoria(Categoria categoria) {
-    List<Producto> resultado = new ArrayList<>();
-    for (Producto producto : listaProductos.values()) {
-        if (producto.getCategoria() == categoria) {
-            resultado.add(producto);
+    //punto 6:   Obtener las facturas que tenga un cliente
+// donde su nombre sea juan y haya comprado un celular de marca Iphone 16 pro max
+    public ArrayList<Factura> obtenerFacturasConIphone16ProMaxDeJuan() {
+        ArrayList<Factura> resultado = new ArrayList<>();
+        for (Factura factura : listaFacturas) {
+            if (factura.cliente().getNombreCompleto().contains("juan")) {
+                for (DetalleFactura detalleFactura : factura.listaDetallesFactura()) {
+                    if (detalleFactura.getProducto().getNombre().equals("Iphone 16 pro max")) {
+                        resultado.add(factura);
+                        break;
+                    }
+                }
+            }
         }
+        return resultado;
     }
-    return resultado;
+
+    // Punto 7: Implementar un método que reciba una categoría
+//  y retorne todos los productos registrados que pertenezcan a ella.
+    public List<Producto> obtenerProductosPorCategoria(Categoria categoria) {
+        List<Producto> resultado = new ArrayList<>();
+        for (Producto producto : listaProductos.values()) {
+            if (producto.getCategoria() == categoria) {
+                resultado.add(producto);
+            }
+        }
+        return resultado;
     }
 
     //punto 8 : Implementar un método que reciba un precio mínimo y un precio máximo, y retorne
@@ -235,11 +251,25 @@ public List<Producto> obtenerProductosPorCategoria(Categoria categoria) {
         }
         return resultado;
     }
-}
 
-//punto 9: Implementar un método que retorne todos los productos
+
+    //punto 9: Implementar un método que retorne todos los productos
 // registrados en la tienda, ordenados de menor a mayor según su precio.
-
+    public List<Producto> obtenerProductosOrdenadosPorPrecio() {
+        List<Producto> resultado = new ArrayList<>();
+        resultado.addAll(listaProductos.values());
+        for (int i = 0; i < resultado.size(); i++) {
+            for (int j = 0; j < resultado.size() - 1; j++) {
+                if (resultado.get(j).getValor() > resultado.get(j + 1).getValor()) {
+                    Producto temporal = resultado.get(j);
+                    resultado.set(j, resultado.get(j + 1));
+                    resultado.set(j + 1, temporal);
+                }
+            }
+        }
+        return resultado;
+    }
+}
 //punto 10: Implementar un método que identifique el producto con el precio más alto de la tienda.
 // Si no existen productos registrados, el método debe retornar un Optional vacío.
 

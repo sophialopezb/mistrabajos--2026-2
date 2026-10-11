@@ -1,6 +1,5 @@
 package model;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -139,7 +138,6 @@ public class Tienda {
     // 1. Obtener productos en cantidad mayores  o iguales a 10
     public List<Producto> obtenerMayoresDiez() {
         List<Producto> productosAdecuado = new ArrayList<>();
-
         for (Producto productosBuenos : listaProductos.values()) {
             if (productosBuenos.getCantidadDisponible() >= 10) {
                 productosAdecuado.add(productosBuenos);
@@ -163,7 +161,6 @@ public class Tienda {
     //3. Obtener la lista de clientes que hayan comprado el 7 de octubre de 2026
     public ArrayList<Cliente> ObtenerClientesCompras(LocalDate fechaConsulta) {
         ArrayList<Cliente> listaClientes = new ArrayList<>();
-
         for (Factura factura : listaFacturas) {
             if (factura.fecha().isEqual(fechaConsulta)) {
                 listaClientes.add(factura.cliente());
@@ -175,7 +172,6 @@ public class Tienda {
     //4. obtener las facturas que tenga un cliente donde su nombre empiece con R
     public ArrayList<Factura> obtenerFacturasClienteConR(){
         ArrayList<Factura> resultado = new ArrayList<>();
-
         for (Factura factura : listaFacturas){
             if(factura.tieneClienteConR()){
                 resultado.add(factura);
@@ -218,17 +214,28 @@ public ArrayList<Factura> obtenerFacturasConIphone16ProMaxDeJuan() {
 
 // Punto 7: Implementar un método que reciba una categoría
 //  y retorne todos los productos registrados que pertenezcan a ella.
-public List<Producto> obtenerProductosPorCategoria(String categoria) {
+public List<Producto> obtenerProductosPorCategoria(Categoria categoria) {
     List<Producto> resultado = new ArrayList<>();
     for (Producto producto : listaProductos.values()) {
-        if (producto.getCategoria().equals(categoria)) {
+        if (producto.getCategoria() == categoria) {
             resultado.add(producto);
         }
     }
     return resultado;
+    }
+
+    //punto 8 : Implementar un método que reciba un precio mínimo y un precio máximo, y retorne
+    // los productos cuyo precio se encuentre dentro de ese rango, incluyendo ambos límites.
+    public List<Producto> obtenerProductosPorPrecioMaxYMin(double valorMin, double valorMax) {
+        List<Producto> resultado = new ArrayList<>();
+        for (Producto producto : listaProductos.values()) {
+            if (producto.getValor() >= valorMin && producto.getValor() <= valorMax) {
+                resultado.add(producto);
+            }
+        }
+        return resultado;
+    }
 }
-//punto 8 : Implementar un método que reciba un precio mínimo y un precio máximo, y retorne
-// los productos cuyo precio se encuentre dentro de ese rango, incluyendo ambos límites.
 
 //punto 9: Implementar un método que retorne todos los productos
 // registrados en la tienda, ordenados de menor a mayor según su precio.
@@ -240,6 +247,3 @@ public List<Producto> obtenerProductosPorCategoria(String categoria) {
 // todos los clientes que residan en ella.
 // La búsqueda debe realizarse sin diferenciar entre mayúsculas y minúsculas.
 
-
-
-}
